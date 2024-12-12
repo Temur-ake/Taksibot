@@ -19,3 +19,4 @@ jobs:
             cd /var/www/temur_taxi
             git pull 
             systemctl restart temur_taxi.service
+            systemctl restart temur_taxi_a.service
