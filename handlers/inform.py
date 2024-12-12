@@ -21,7 +21,7 @@ async def capture_delivery_message(message: Message, state: FSMContext, bot: Bot
     user_message = message.text
 
     try:
-        await bot.send_message(-1002452020125, user_message)
+        await bot.send_message(-1002365517010, user_message)
 
         await message.answer("Буюртмангиз қабул қилинди! Тез орада шафёрларимиз сизга алоқага чиқишади")
 
