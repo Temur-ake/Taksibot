@@ -20,4 +20,4 @@ admin.add_view(ModelView(User, icon='fas fa-user'))
 
 admin.mount_to(app)
 if __name__ == '__main__':
-    uvicorn.run(app, host="localhost", port=8030)
+    uvicorn.run(app, host="k.feniks.best", port=8050)
