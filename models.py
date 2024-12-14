@@ -23,7 +23,8 @@ class User(Base):
     user_id: Mapped[int] = mapped_column(BIGINT)
     username: Mapped[str] = mapped_column(VARCHAR(255), nullable=True)
     chat_id: Mapped[str] = mapped_column(VARCHAR(255), nullable=True)
-    last_permission_granted: Mapped[datetime] = mapped_column(nullable=True)
+    last_permission_granted: Mapped[datetime] = mapped_column(nullable=True)  # "Shu Vaqtgacha amal qilish sanasi:"
+    date_adding: Mapped[datetime] = mapped_column(nullable=True)  # "Hozirgi sana:"users
 
     def grant_permission(self, duration: timedelta):
         self.last_permission_granted = datetime.now() + duration
