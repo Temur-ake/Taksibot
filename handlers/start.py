@@ -55,15 +55,9 @@ start_router = Router()
 
 @start_router.message(CommandStart())
 async def command_start_handler(message: Message, state: FSMContext, bot: Bot) -> None:
-    # animation = await message.answer(text=f'⏳')
-    # await asyncio.sleep(1)
-    # await bot.delete_message(chat_id=message.chat.id, message_id=animation.message_id)
-
     user_id = message.from_user.id
     full_name = html.bold(message.from_user.full_name)
     username = message.from_user.username
-
-    # await message.answer("Иш бошланмоқдааа...", reply_markup=ReplyKeyboardRemove())
 
     existing_user = session.query(User).filter_by(user_id=user_id).first()
     if not existing_user:

@@ -103,7 +103,7 @@ async def check(message: Message, bot: Bot):
             await message.delete()
 
             ikb = InlineKeyboardBuilder()
-            ikb.add(InlineKeyboardButton(text='Заказ бериш', url='https://t.me/taxivodiy_bot'))
+            ikb.add(InlineKeyboardButton(text='Заказ бериш', url='https://t.me/ToshkentAndijonTaksi_Bot'))
 
             await message.answer(
                 f"❗❗️ХУРМАТЛИ {message.from_user.full_name} СИЗНИНГ ЗАКАЗИНГИЗ ШОФЁРЛАР 🚖 ГРУППАСИГА ТУШДИ ❗️ "
@@ -114,32 +114,32 @@ async def check(message: Message, bot: Bot):
             print(f"Error sending group message: {e}")
         return
 
-    if await check_for_keywords(message.text, KEYWORDS_D) and not check_user_permission(user_id): # and not checking
-        C_W24 = "@C_W24"
-        try:
-            await message.answer(
-                f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
-                f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-            # await message.delete()
-            # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
-        except Exception as e:
-            print(f"Error sending group message: {e}")
-        return
+    # if await check_for_keywords(message.text, KEYWORDS_D) and not check_user_permission(user_id): # and not checking
+    #     C_W24 = "@C_W24"
+    #     try:
+    #         await message.answer(
+    #             f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
+    #             f"Қўшилиш учун {C_W24} админ билан боғланинг!")
+    #         # await message.delete()
+    #         # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
+    #     except Exception as e:
+    #         print(f"Error sending group message: {e}")
+    #     return
 
 
-    if message.text:
-        await bot.send_message(-1002376904373, f"{message.text}")
-        return
+    # if message.text:
+    #     await bot.send_message(-1002376904373, f"{message.text}")
+    #     return
 
     #Guruh id sini tekshirish kerak
-    if await check_user_permission(user_id):
-        await bot.send_message(-1002487836129, f"{message.text}")
-        return
-
-    if not await check_user_permission(user_id):
-        C_W24 = "@C_W24"
-        await message.answer(
-            f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
-            f"Қўшилиш учун {C_W24} админ билан боғланинг!")
+    # if await check_user_permission(user_id):
+    #     await bot.send_message(-1002487836129, f"{message.text}")
+    #     return
+    #
+    # if not await check_user_permission(user_id):
+    #     C_W24 = "@C_W24"
+    #     await message.answer(
+    #         f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
+    #         f"Қўшилиш учун {C_W24} админ билан боғланинг!")
         # await message.delete()
         # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
