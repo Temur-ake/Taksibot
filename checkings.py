@@ -10,9 +10,6 @@ KEYWORDS_C = [
     'кетаман',
     'ketaman',
 
-    'Соат 19:00 да чиқиб кетишим керак 1 та катта сумкам бор',
-    'Soat 19:00 da chiqib ketishim kerak 1 ta katta sumkam bor',
-
     'бораман',
     'boraman',
 
@@ -24,23 +21,8 @@ KEYWORDS_D = [
     'кам',
     'kam',
 
-    'йўлга чиқаман',
-    "yo'lga chiqaman",
-
-    'юрамиз',
-    'yuramiz',
-
     'камдамиз',
     'kamdamiz',
-
-    'пустой',
-    'pustoy',
-
-    'авто',
-    'avto',
-
-    'мошина',
-    'moshina',
 
     'ТОМ БАГАЖ БОР',
     'TOM BAGAJ BOR',
@@ -57,26 +39,11 @@ KEYWORDS_D = [
     'каммиз',
     'kammiz',
 
-    'АЁЛ КИШИ БОР',
-    'AYOL KISHI BOR',
-
-    '+99897',
-    '+99890',
-    '+99893',
-    '+99894',
-    '+99895',
-    '+99891',
-    '+99888',
-    '+99899'
-    '97',
-    '90',
-    '93',
-    '94',
-    '95',
-    '91',
-    '88',
-    '99'
 ]
+
+
+# klientlar_kanali = -1002376904373
+# shopirlar_kanali =
 
 
 async def check_user_permission(user_id: int) -> bool:
@@ -122,7 +89,7 @@ async def check(message: Message, bot: Bot):
 
     user_id = message.from_user.id
     chat_id = message.chat.id
-    print(f"userning {chat_id}")
+    print(f"guruxning chat id  {chat_id}")
 
     user = session.query(User).filter(User.user_id == user_id).first()
     if not user:
@@ -132,7 +99,7 @@ async def check(message: Message, bot: Bot):
 
     if await check_for_keywords(message.text, KEYWORDS_C):
         try:
-            await bot.send_message(-1002365517010, f"{message.text}")
+            await bot.send_message(-1002376904373, f"{message.text}")
             await message.delete()
 
             ikb = InlineKeyboardBuilder()
@@ -147,22 +114,24 @@ async def check(message: Message, bot: Bot):
             print(f"Error sending group message: {e}")
         return
 
-    if await check_for_keywords(message.text, KEYWORDS_D) and not await check_user_permission(user_id):
+    if await check_for_keywords(message.text, KEYWORDS_D) and not check_user_permission(user_id): # and not checking
         C_W24 = "@C_W24"
         try:
             await message.answer(
                 f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
                 f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-            await message.delete()
-            await restrict_user(bot, chat_id, user_id, duration_minutes=1)
+            # await message.delete()
+            # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
         except Exception as e:
             print(f"Error sending group message: {e}")
         return
 
+
     if message.text:
-        await bot.send_message(-1002365517010, f"{message.text}")
+        await bot.send_message(-1002376904373, f"{message.text}")
         return
 
+    #Guruh id sini tekshirish kerak
     if await check_user_permission(user_id):
         await bot.send_message(-1002487836129, f"{message.text}")
         return
@@ -172,5 +141,5 @@ async def check(message: Message, bot: Bot):
         await message.answer(
             f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
             f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-        await message.delete()
-        await restrict_user(bot, chat_id, user_id, duration_minutes=1)
+        # await message.delete()
+        # await restrict_user(bot, chat_id, user_id, duration_minutes=0)

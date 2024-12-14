@@ -1,11 +1,19 @@
 from aiogram.fsm.state import StatesGroup, State
 
 
-class Data(StatesGroup):
+class Client(StatesGroup):
     client = State()
-    driver = State()
-    delivery = State()
+    phone_number = State()
 
+
+class Driver(StatesGroup):
+    driver = State()
+    phone_number = State()
+
+
+class Delivery(StatesGroup):
+    delivery = State()
+    phone_number = State()
 
 
 class AdminState(StatesGroup):

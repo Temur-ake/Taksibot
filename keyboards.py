@@ -20,10 +20,10 @@ def client_button():
         *[
             KeyboardButton(text='Андижон -> Тошкент'),
             KeyboardButton(text='Тошкент -> Андижон'),
-            KeyboardButton(text="Фарғона -> Тошкент"),
-            KeyboardButton(text="Тошкент -> Фарғона"),
-            KeyboardButton(text='Наманган -> Тошкент'),
-            KeyboardButton(text="Тошкент -> Наманган"),
+            # KeyboardButton(text="Фарғона -> Тошкент"),
+            # KeyboardButton(text="Тошкент -> Фарғона"),
+            # KeyboardButton(text='Наманган -> Тошкент'),
+            # KeyboardButton(text="Тошкент -> Наманган"),
 
             KeyboardButton(text="Почта бор"),
             KeyboardButton(text="Ортга")
