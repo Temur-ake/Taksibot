@@ -43,7 +43,7 @@ async def capture_phone_number(message: Message, state: FSMContext, bot: Bot):
     user_fullname = message.from_user.username or " - "
 
     try:
-        await bot.send_message(-1002376904373, f"Телеграми: @{user_fullname}\n\n{user_message}\n\nТелефон рақами: {phone_number}")
+        await bot.send_message(-1001898131334, f"Телеграми: @{user_fullname}\n\n{user_message}\n\nТелефон рақами: {phone_number}")
         await message.answer("Буюртмангиз қабул қилинди! Тез орада шафёрларимиз сизга алоқага чиқишади")
         await state.clear()
 
@@ -84,17 +84,17 @@ async def capture_driver_phone_number(message: Message, state: FSMContext, bot: 
     user_fullname = message.from_user.username or " - "
 
     try:
-        await bot.send_message(--1002016546613,
+        await bot.send_message(-1001898131334,
                                f"Телеграми: @{user_fullname}\n\n{user_message}\n\nТелефон рақами: {phone_number}")
-        if await check_user_permission(user_id):
-            await bot.send_message(-1002487836129, f"{message.text}")
-            await message.answer("Элонингиз қабул қилинди ва клиентлар гурухига юборилди!")
-            await state.clear()
-        else:
-            await message.answer(
-                f"Хурматли {user_fullname}, ушбу гуруҳга елон бериш учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
-                f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-            return
+        # if await check_user_permission(user_id):
+        #     await bot.send_message(-1002487836129, f"{message.text}")
+        #     await message.answer("Элонингиз қабул қилинди ва клиентлар гурухига юборилди!")
+        #     await state.clear()
+        # else:
+        #     await message.answer(
+        #         f"Хурматли {user_fullname}, ушбу гуруҳга елон бериш учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
+        #         f"Қўшилиш учун {C_W24} админ билан боғланинг!")
+        #     return
 
     except Exception as e:
         await message.answer(f"Хатолик юз берди: {e}")
@@ -131,7 +131,7 @@ async def capture_phone_number_with_route(message: Message, state: FSMContext, b
     user_fullname = message.from_user.username or " - "
 
     try:
-        await bot.send_message(-1002376904373,
+        await bot.send_message(-1001898131334,
                                f"Телеграми: @{user_fullname}\n\n{formatted_route}\n{user_message}\n\nТелефон рақами: {phone_number}")
         await message.answer("Буюртмангиз қабул қилинди! Тез орада шафёрларимиз сизга алоқага чиқишади")
         await state.clear()
