@@ -31,7 +31,7 @@ async def start_pochta(message: Message, state: FSMContext):
 @inform_router.message(Delivery.delivery)
 async def capture_delivery_message(message: Message, state: FSMContext):
     await state.update_data(user_message=message.text)
-    await message.answer("Илтимос телефон рақамингизни киритинг:")
+    await message.answer("Илтимос телефон рақамингизни киритинг ( 979991232 ):")
     await state.set_state(Delivery.phone_number)
 
 
@@ -71,7 +71,7 @@ async def start_shofer(message: Message, state: FSMContext, bot: Bot):
 @inform_router.message(Driver.driver)
 async def capture_driver_message(message: Message, state: FSMContext):
     await state.update_data(user_message=message.text)
-    await message.answer("Илтимос телефон рақамингизни киритинг:")
+    await message.answer("Илтимос телефон рақамингизни киритинг ( 979991232 ):")
     await state.set_state(Driver.phone_number)
 
 
@@ -118,7 +118,7 @@ async def start_route(message: Message, state: FSMContext):
 @inform_router.message(Client.client)
 async def capture_user_message(message: Message, state: FSMContext):
     await state.update_data(user_message=message.text)
-    await message.answer("Илтимос телефон рақамингизни киритинг:")
+    await message.answer("Илтимос телефон рақамингизни киритинг ( 979991232 ):")
     await state.set_state(Client.phone_number)
 
 
