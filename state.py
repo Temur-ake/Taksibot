@@ -8,8 +8,6 @@ class Client(StatesGroup):
 
 class Driver(StatesGroup):
     driver = State()
-    phone_number = State()
-
 
 class Delivery(StatesGroup):
     delivery = State()
