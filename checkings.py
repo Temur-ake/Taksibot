@@ -43,7 +43,7 @@ KEYWORDS_D = [
 
 
 # klientlar_kanali = -1002376904373
-# shopirlar_kanali =
+# shopirlar_kanali = -1001898131334
 
 
 async def check_user_permission(user_id: int) -> bool:
