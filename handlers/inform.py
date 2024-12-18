@@ -77,11 +77,13 @@ async def capture_driver_message(message: Message, state: FSMContext, bot: Bot):
         # Send the message to the specified Telegram group/channel
         await bot.send_message(-1001898131334, f"{user_message}")
         await message.answer("Элонингиз қабул қилинди ва клиентлар гурухига юборилди!")
+        await state.clear()
 
     except Exception as e:
         # Handle any errors, such as network issues or permission problems
         await message.answer("Произошла ошибка. Пожалуйста, попробуйте снова.")
         print(f"Error: {e}")
+
 
 
 # @inform_router.message(Driver.phone_number)
