@@ -141,6 +141,7 @@ async def capture_phone_number_with_route(message: Message, state: FSMContext, b
     phone_number = message.text
     user_fullname = message.from_user.username or " - "
 
+
     try:
         await bot.send_message(-1001898131334,
                                f"Телеграми: @{user_fullname}\n\n{formatted_route}\n{user_message}\n\nТелефон рақами: {phone_number}")
