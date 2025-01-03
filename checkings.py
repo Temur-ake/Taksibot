@@ -84,7 +84,7 @@ async def restrict_user(bot: Bot, chat_id: int, user_id: int, duration_minutes: 
 @checking_router.message()
 async def check(message: Message, bot: Bot):
     """Main handler to check message content and apply restrictions."""
-    if message.chat.type in ['group', 'supergroup'] and not message.chat.id == -1002477688128 :
+    if message.chat.type not in ['group', 'supergroup'] and message.chat.id == -1002477688128:
         return
 
     user_id = message.from_user.id
