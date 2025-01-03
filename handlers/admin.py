@@ -56,7 +56,7 @@ async def admin(message: Message, state: FSMContext):
     await state.clear()
 
     users = session.query(User).filter(User.user_id.isnot(None)).all()
-
+# user chat id is not null
     if not users:
         await message.answer("Hech kimga reklama yuborilmadi. Foydalanuvchilar mavjud emas.")
         return
