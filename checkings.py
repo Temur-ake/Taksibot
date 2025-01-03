@@ -42,7 +42,7 @@ KEYWORDS_D = [
 ]
 
 
-# klientlar_kanali = -1002376904373
+# klientlar_kanali = -1002477688128
 # shopirlar_kanali = -1001898131334
 
 
@@ -99,7 +99,7 @@ async def check(message: Message, bot: Bot):
 
     if await check_for_keywords(message.text, KEYWORDS_C):
         try:
-            await bot.send_message(-1002376904373, f"{message.text}")
+            await bot.send_message(-1002477688128, f"{message.text}")
             await message.delete()
 
             ikb = InlineKeyboardBuilder()
@@ -128,7 +128,7 @@ async def check(message: Message, bot: Bot):
 
 
     # if message.text:
-    #     await bot.send_message(-1002376904373, f"{message.text}")
+    #     await bot.send_message(-1002477688128, f"{message.text}")
     #     return
 
     #Guruh id sini tekshirish kerak
