@@ -7,8 +7,8 @@ from models import session, User
 checking_router = Router()
 
 KEYWORDS_C = [
-    'кетаман',
-    'ketaman',
+    # 'кетаман',
+    # 'ketaman',
 
     'бораман',
     'boraman',
