@@ -1,6 +1,5 @@
 import uvicorn
 from datetime import datetime
-from sqlalchemy.orm import Session
 from sqlalchemy import extract
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -8,8 +7,6 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.templating import Jinja2Templates
 from starlette.requests import Request
 from starlette_admin.contrib.sqla import Admin, ModelView
-from starlette_admin.views import CustomView
-
 from login import UsernameAndPasswordProvider
 from models import engine, User, session
 
@@ -25,8 +22,12 @@ admin = Admin(engine, title="Example: SQLAlchemy",
               middlewares=[Middleware(SessionMiddleware, secret_key="qewrerthytju4")],
               )
 
-# Adding User Model to Admin
-admin.add_view(ModelView(User, icon='fas fa-user'))
+# Extend ModelView to include search functionality
+class CustomUserModelView(ModelView):
+    column_searchable_list = ['user_id', 'username']  # Allow searching by user_id and username
+
+# Add the CustomUserModelView to the admin interface
+admin.add_view(CustomUserModelView(User, engine)
 
 
 @app.route("/statistics")
@@ -36,6 +37,7 @@ async def statistics(request: Request):
     current_year = now.year
 
     with session:
+        # Fetch users for the current month and year
         users = session.query(User).filter(
             User.date_adding.isnot(None),
             extract('month', User.date_adding) == current_month,
@@ -54,7 +56,6 @@ async def statistics(request: Request):
         "count": user_count,
         "users": user_list
     })
-
 
 
 # Mount Admin to the Starlette app
