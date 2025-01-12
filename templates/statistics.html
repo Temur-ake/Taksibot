@@ -66,6 +66,14 @@
 <body>
     <h1>Statistics for Current Month</h1>
     <p><b>Total Users Added: {{ count }}</b></p>
+
+    <!-- Add a search form for user_id -->
+    <form method="GET" action="/statistics">
+        <label for="user_id">Search by User ID:</label>
+        <input type="text" id="user_id" name="user_id" placeholder="Enter User ID" value="{{ request.query_params.get('user_id', '') }}">
+        <button type="submit">Search</button>
+    </form>
+
     <table>
         <thead>
             <tr>
