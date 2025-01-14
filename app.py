@@ -27,7 +27,7 @@ class CustomUserModelView(ModelView):
     column_searchable_list = ['user_id', 'username']  # Allow searching by user_id and username
 
 # Add the CustomUserModelView to the admin interface
-admin.add_view(CustomUserModelView(User, engine)
+admin.add_view(CustomUserModelView(User, engine))
 
 
 @app.route("/statistics")
