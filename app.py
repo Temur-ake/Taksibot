@@ -22,9 +22,11 @@ admin = Admin(engine, title="Example: SQLAlchemy",
               middlewares=[Middleware(SessionMiddleware, secret_key="qewrerthytju4")],
               )
 
+
 # Extend ModelView to include search functionality
 class CustomUserModelView(ModelView):
     column_searchable_list = ['user_id', 'username']  # Allow searching by user_id and username
+
 
 # Add the CustomUserModelView to the admin interface
 admin.add_view(CustomUserModelView(User, engine))
@@ -44,7 +46,7 @@ async def statistics(request: Request):
             extract('year', User.date_adding) == current_year
         ).all()
 
-    print("Users fetched:", users)  # Debugging line
+    print("Users fetched:", users)
 
     user_list = [{"id": user.id, "user_id": user.user_id, "username": user.username, "date_adding": user.date_adding,
                   "last_permission_granted": user.last_permission_granted}

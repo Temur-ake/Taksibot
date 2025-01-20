@@ -5,6 +5,10 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 
 engine = create_engine(f'postgresql+psycopg2://postgres:1@localhost:5449/taksi_bot')
+
+# SQLite connection string
+# engine = create_engine('sqlite:///taksi_bot')
+
 session = Session(bind=engine)
 
 

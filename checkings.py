@@ -28,7 +28,9 @@ KEYWORDS_D = [
     'TOM BAGAJ BOR',
 
     'тўлдик',
+    'толдик',
     "to'ldik",
+
 
     'почта оламиз',
     'pochta olamiz',
@@ -114,24 +116,24 @@ async def check(message: Message, bot: Bot):
             print(f"Error sending group message: {e}")
         return
 
-    # if await check_for_keywords(message.text, KEYWORDS_D) and not check_user_permission(user_id): # and not checking
-    #     C_W24 = "@C_W24"
-    #     try:
-    #         await message.answer(
-    #             f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
-    #             f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-    #         # await message.delete()
-    #         # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
-    #     except Exception as e:
-    #         print(f"Error sending group message: {e}")
-    #     return
-
+    if await check_for_keywords(message.text, KEYWORDS_D) and not check_user_permission(user_id):  # and not checking
+        C_W24 = "@MrMeliboyev"
+        try:
+            await message.answer(
+                f"Хурматли {message.from_user.full_name}, ушбу гурухда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
+                f"Қўшилиш учун {C_W24} админ билан боғланинг!")
+            await message.delete()
+            await restrict_user(bot, chat_id, user_id, duration_minutes=10)
+            # await bot.ban_chat_member(-1002487251295, message.from_user.id)
+        except Exception as e:
+            print(f"Error sending group message: {e}")
+        return
 
     # if message.text:
     #     await bot.send_message(-1002477688128, f"{message.text}")
     #     return
 
-    #Guruh id sini tekshirish kerak
+    # Guruh id sini tekshirish kerak
     # if await check_user_permission(user_id):
     #     await bot.send_message(-1002487836129, f"{message.text}")
     #     return
@@ -141,5 +143,5 @@ async def check(message: Message, bot: Bot):
     #     await message.answer(
     #         f"Хурматли {message.from_user.full_name}, ушбу гуруҳда ишлашингиз учун бизнинг шофёрлар гуруҳимизга қўшилишингиз керак! "
     #         f"Қўшилиш учун {C_W24} админ билан боғланинг!")
-        # await message.delete()
-        # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
+    # await message.delete()
+    # await restrict_user(bot, chat_id, user_id, duration_minutes=0)
