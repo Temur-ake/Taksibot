@@ -31,7 +31,6 @@ KEYWORDS_D = [
     'толдик',
     "to'ldik",
 
-
     'почта оламиз',
     'pochta olamiz',
 
@@ -86,7 +85,8 @@ async def restrict_user(bot: Bot, chat_id: int, user_id: int, duration_minutes: 
 @checking_router.message()
 async def check(message: Message, bot: Bot):
     """Main handler to check message content and apply restrictions."""
-    if message.chat.type not in ['group', 'supergroup'] and message.chat.id == -1002487251295:
+    if message.chat.type not in ['group',
+                                 'supergroup'] and message.chat.id == -1002487251295 and message.chat.id == -1002288740908:
         return
 
     user_id = message.from_user.id
@@ -102,6 +102,7 @@ async def check(message: Message, bot: Bot):
     if await check_for_keywords(message.text, KEYWORDS_C):
         try:
             await bot.send_message(-1002487251295, f"{message.text}")
+            await bot.send_message(-1002288740908, f"{message.text}")
             await message.delete()
 
             ikb = InlineKeyboardBuilder()

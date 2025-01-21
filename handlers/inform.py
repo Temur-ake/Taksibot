@@ -46,6 +46,8 @@ async def capture_phone_number(message: Message, state: FSMContext, bot: Bot):
     try:
         await bot.send_message(-1002487251295,
                                f"Телеграми: @{user_fullname}\n{formatted_route}\n\n{user_message}\n\nТелефон рақами: {phone_number}")
+        await bot.send_message(-1002288740908,
+                               f"Телеграми: @{user_fullname}\n{formatted_route}\n\n{user_message}\n\nТелефон рақами: {phone_number}")
         await message.answer("Буюртмангиз қабул қилинди! Тез орада шафёрларимиз сизга алоқага чиқишади")
         await state.clear()
 
@@ -141,6 +143,8 @@ async def capture_phone_number_with_route(message: Message, state: FSMContext, b
 
     try:
         await bot.send_message(-1002487251295,
+                               f"Телеграми: @{user_fullname}\n\n{formatted_route}\n{user_message}\n\nТелефон рақами: {phone_number}")
+        await bot.send_message(-1002288740908,
                                f"Телеграми: @{user_fullname}\n\n{formatted_route}\n{user_message}\n\nТелефон рақами: {phone_number}")
         await message.answer("Буюртмангиз қабул қилинди! Тез орада шафёрларимиз сизга алоқага чиқишади")
         await state.clear()
