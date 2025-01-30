@@ -113,7 +113,7 @@ async def capture_driver_message(message: Message, state: FSMContext, bot: Bot):
 
 @inform_router.message(F.text == "Клиент")
 async def start(message: Message):
-    await message.answer("Танланг:", reply_markup=client_button())
+    await message.answer("Танланг:", reply_markup=client_button(message))
 
 
 @inform_router.message(F.text.in_(ROUTES))
