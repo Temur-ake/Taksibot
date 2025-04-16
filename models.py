@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from sqlalchemy import create_engine, String, Integer, DateTime, BigInteger
+from sqlalchemy import create_engine, String, Integer, DateTime, BigInteger, Column
 from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
 
 # engine = create_engine('sqlite:///taksi_bot.db', echo=True)
@@ -14,18 +14,14 @@ class Base(DeclarativeBase):
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = 'users'
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(BigInteger)
-    username: Mapped[str] = mapped_column(String(255), nullable=True)
-    chat_id: Mapped[str] = mapped_column(String(255), nullable=True)
-    last_permission_granted: Mapped[datetime] = mapped_column(DateTime,
-                                                              nullable=True)
-    date_adding: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-
-    def grant_permission(self, duration: timedelta):
-        self.last_permission_granted = datetime.now() + duration
+    id = Column(Integer, primary_key=True)
+    user_id = Column(BigInteger, unique=True)
+    chat_id = Column(BigInteger)
+    username = Column(String)
+    last_permission_granted = Column(DateTime, nullable=True)
+    date_adding = Column(DateTime, default=datetime.utcnow)
 
 
 class Driver(Base):
