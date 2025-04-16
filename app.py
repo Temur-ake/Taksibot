@@ -8,7 +8,7 @@ from starlette.templating import Jinja2Templates
 from starlette.requests import Request
 from starlette_admin.contrib.sqla import Admin, ModelView
 from login import UsernameAndPasswordProvider
-from models import engine, User, session
+from models import engine, User, Driver, session
 
 app = Starlette()
 
@@ -16,46 +16,58 @@ app = Starlette()
 templates = Jinja2Templates(directory="templates")
 
 # Admin setup
-admin = Admin(engine, title="Example: SQLAlchemy",
-              base_url='/',
-              auth_provider=UsernameAndPasswordProvider(),
-              middlewares=[Middleware(SessionMiddleware, secret_key="qewrerthytju4")],
-              )
+admin = Admin(
+    engine,
+    title="Taxi Bot Admin",
+    base_url='/',
+    auth_provider=UsernameAndPasswordProvider(),
+    middlewares=[Middleware(SessionMiddleware, secret_key="qewrerthytju4")],
+)
 
 
-# Extend ModelView to include search functionality
+# 🔹 **Custom Model Views**
 class CustomUserModelView(ModelView):
-    column_searchable_list = ['user_id', 'username']  # Allow searching by user_id and username
+    """🔍 Allow searching users by ID & username in Admin Panel"""
+    column_searchable_list = ['user_id', 'username']
 
 
-# Add the CustomUserModelView to the admin interface
+class CustomDriverModelView(ModelView):
+    """🚖 Manage drivers, searchable by telegram_id, name, or route"""
+    column_searchable_list = ['telegram_id', 'full_name', 'route']
+    column_list = ['id', 'telegram_id', 'full_name', 'route', 'queue', 'client_count', 'date_added']
+
+
+# 🔹 **Register models in the Admin Panel**
 admin.add_view(CustomUserModelView(User, engine))
+admin.add_view(CustomDriverModelView(Driver, engine))
 
 
 @app.route("/statistics")
 async def statistics(request: Request):
+    """📊 User statistics for the current month"""
     now = datetime.now()
     current_month = now.month
     current_year = now.year
 
-    with session:
-        # Fetch users for the current month and year
+    # Ensure session is scoped properly
+    with session.begin():
         users = session.query(User).filter(
             User.date_adding.isnot(None),
             extract('month', User.date_adding) == current_month,
             extract('year', User.date_adding) == current_year
         ).all()
 
-    print("Users fetched:", users)
-
-    user_list = [{"id": user.id, "user_id": user.user_id, "username": user.username, "date_adding": user.date_adding,
-                  "last_permission_granted": user.last_permission_granted}
-                 for user in users]
-    user_count = len(users)
+    user_list = [{
+        "id": user.id,
+        "user_id": user.user_id,
+        "username": user.username,
+        "date_adding": user.date_adding,
+        "last_permission_granted": user.last_permission_granted
+    } for user in users]
 
     return templates.TemplateResponse("statistics.html", {
         "request": request,
-        "count": user_count,
+        "count": len(users),
         "users": user_list
     })
 
@@ -65,4 +77,4 @@ admin.mount_to(app)
 
 # Run the app
 if __name__ == '__main__':
-    uvicorn.run(app, host="k.feniks.best", port=8050)
+    uvicorn.run(app, host="localhost", port=8050)

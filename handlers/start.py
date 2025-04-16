@@ -58,6 +58,7 @@ async def command_start_handler(message: Message, state: FSMContext, bot: Bot) -
     user_id = message.from_user.id
     full_name = html.bold(message.from_user.full_name)
     username = message.from_user.username
+    await state.clear()
 
     existing_user = session.query(User).filter_by(user_id=user_id).first()
     if not existing_user:
@@ -69,6 +70,13 @@ async def command_start_handler(message: Message, state: FSMContext, bot: Bot) -
         f'{"Ассалому алайкум"}, {full_name}\n\n{"Бизнинг ботга хуш келибсиз"}',
         reply_markup=main_button()
     )
+
+    if int(message.from_user.id) == int(os.getenv('ADMIN_ID')):
+        await message.answer(
+            f'Салом админ {full_name}',
+            reply_markup=admin_button()
+        )
+
     # else:
     # not_subscribed_channels = await is_user_subscribed(user_id, bot)
 
@@ -85,9 +93,3 @@ async def command_start_handler(message: Message, state: FSMContext, bot: Bot) -
     #     await message.answer("Ассалому алайкум! Обуна бўлинг: ", reply_markup=markup)
     #
     #     await state.set_state('awaiting_subscription')
-
-    if int(message.from_user.id) == int(os.getenv('ADMIN_ID')):
-        await message.answer(
-            f'Салом админ {full_name}',
-            reply_markup=admin_button()
-        )

@@ -1,37 +1,59 @@
-from sqlalchemy import create_engine, BIGINT
-from sqlalchemy.dialects.mysql import VARCHAR
-from sqlalchemy.orm import DeclarativeBase, declared_attr, Session
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+from sqlalchemy import create_engine, String, Integer, DateTime
+from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
+from datetime import datetime, timedelta
 
-engine = create_engine(f'postgresql+psycopg2://postgres:1@localhost:5449/taksi_bot')
-
-# SQLite connection string
-# engine = create_engine('sqlite:///taksi_bot')
-
+engine = create_engine('sqlite:///taksi_bot.db', echo=True)
 session = Session(bind=engine)
 
 
 class Base(DeclarativeBase):
-    @declared_attr
-    def __tablename__(self) -> str:
-        return self.__name__.lower() + 's'
-
-
-# models.py
-from datetime import datetime, timedelta
+    __abstract__ = True
 
 
 class User(Base):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(BIGINT)
-    username: Mapped[str] = mapped_column(VARCHAR(255), nullable=True)
-    chat_id: Mapped[str] = mapped_column(VARCHAR(255), nullable=True)
-    last_permission_granted: Mapped[datetime] = mapped_column(nullable=True)  # "Shu Vaqtgacha amal qilish sanasi:"
-    date_adding: Mapped[datetime] = mapped_column(nullable=True)  # "Hozirgi sana:"users
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer)
+    username: Mapped[str] = mapped_column(String(255), nullable=True)
+    chat_id: Mapped[str] = mapped_column(String(255), nullable=True)
+    last_permission_granted: Mapped[datetime] = mapped_column(DateTime,
+                                                              nullable=True)
+    date_adding: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     def grant_permission(self, duration: timedelta):
         self.last_permission_granted = datetime.now() + duration
+
+
+class Driver(Base):
+    __tablename__ = "drivers"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    telegram_id: Mapped[str] = mapped_column(String, nullable=True)
+    full_name: Mapped[str] = mapped_column(String)
+    age: Mapped[int] = mapped_column(Integer, nullable=True)
+    city: Mapped[str] = mapped_column(String, nullable=True)
+    town: Mapped[str] = mapped_column(String, nullable=True)
+    type_of_car: Mapped[str] = mapped_column(String, nullable=True)
+    tariff: Mapped[str] = mapped_column(String, nullable=False)
+    phone_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    document: Mapped[str] = mapped_column(String, nullable=True)
+    tex_passport: Mapped[str] = mapped_column(String, nullable=True)
+    queue: Mapped[int] = mapped_column(Integer, nullable=True)
+    route: Mapped[str] = mapped_column(String, nullable=True)
+    delivery_time: Mapped[str] = mapped_column(String, nullable=True)
+
+    date_added: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    client_count: Mapped[int] = mapped_column(Integer, nullable=True)
+
+    def __repr__(self):
+        return f"<Driver {self.full_name}, Queue: {self.queue}>"
+
+
+def get_today_drivers():
+    today = datetime.now().date()
+    today_drivers = session.query(Driver).filter(Driver.date_added >= today).order_by(Driver.queue).all()
+    return today_drivers
 
 
 Base.metadata.create_all(engine)

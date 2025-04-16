@@ -1,0 +1,51 @@
+''' Klient - Shofer - Pochta bor qismlari boladi '''
+
+Klient va Pochta:
+
+Klient va Pochta malumotlarini yigib navbat bilan mos kelgan shofyorlarga Shofyorlarga tashlab beradi
+
+Malumotlar mos kelmasa guruhga tashlab beradi yoki Saytda korsatadi unga operator shofyor topib berishi kerak
+
+
+Shofyor:
+
+Barcha malumotlarini toldirib admin tasdqilashini kutadi tasdiqlasa royxatdan otadi
+
+Shofyor malumotlarni toldirib Navbatga turadi
+Bir kunda 1 ta shofyor 1 marta navbatga tura oladi
+
+Malumotlarni yangilasa boladi
+
+Malumotlarini korsa boladi
+
+Admin bilan boglansa boladi
+
+
+
+Admin Qismi:
+
+Reklama qilsa boladi
+
+Saytdan Malumotlarini boshqarsa boladi
+
+Klient yoki Pochta malumotlari mos kelmaganlarni korib shopir topib berib ushbu royxatdan ochirib yuborsak boladi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tolov qismi qanaqa boladi:
+
+Balansni toldirish ni bosadi, summani kiritadi va rasmni tashlaydi
+bu malumotlar adminga boradi pul tushganin , summa va rasmni tekshirib tasdqilaydi yoki bekor qiladi
+shu bilan shofyor balansi da mablag boladi va bot mablagi yetguncha klent tashlaydi (20000 bolsa ) 2 ta tashlaydi holos har tashlaganda 10000 balansdan ayriladi
+
