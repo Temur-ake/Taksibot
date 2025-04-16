@@ -152,4 +152,5 @@ def driver_location_button():
     keyboard.add(KeyboardButton(text="Андижондаман"))
     keyboard.add(KeyboardButton(text="Тошкентдаман"))
     keyboard.add(KeyboardButton(text="Ортга"))
+    keyboard.adjust(2, 2)
     return keyboard.as_markup(resize_keyboard=True)
