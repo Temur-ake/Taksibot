@@ -303,6 +303,7 @@ async def admin_approve_driver(callback_query: CallbackQuery, bot: Bot):
 
     шофёр_data = pending_drivers.pop(message_id)  # ✅ Маълумотларни олиш ва cachedan ўчириш
     user_id = шофёр_data.get("telegram_id")  # ✅ Фойдаланувчининг Telegram ID сини олиш
+    drivergroup = -1002630555042
 
     await save_driver_to_db(шофёр_data, callback_query)
 
@@ -312,6 +313,7 @@ async def admin_approve_driver(callback_query: CallbackQuery, bot: Bot):
     if user_id:
         await bot.send_message(user_id, "✅ *Админ маълумотларингизни қабул қилди!*", parse_mode="Markdown",
                                reply_markup=driver_button())
+        await bot.send_message(drivergroup, шофёр_data)
 
 
 @driver_router.callback_query(DriverState.user_confirm, F.data == "confirm_no")
