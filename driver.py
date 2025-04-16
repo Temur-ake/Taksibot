@@ -68,6 +68,23 @@ async def start_bot(message: Message, state: FSMContext):
         )
 
 
+@driver_router.message(F.text == "📞 Админ билан боғланиш")
+async def contact_with_admin(message: Message):
+    await message.answer("Илтимос шу одамга Телеграмдан ёзинг @VPEXadmin")
+
+
+@driver_router.message(F.text == "Ортга")
+async def back(message: Message):
+    await message.answer('Танланг :', reply_markup=driver_button())
+
+
+@driver_router.message(F.text == "Бекор килиш")
+async def back(message: Message, state: FSMContext):
+    if state:
+        await state.clear()
+    await message.answer('Бекор килинди ✅', reply_markup=driver_button())
+
+
 @driver_router.message(F.text.func(lambda text: text and text.strip().lower() == "рўйхатдан ўтиш"))
 async def start_shofer(message: Message, state: FSMContext):
     """Агар ҳайдовчи базада мавжуд бўлса, менюни кўрсатади. Акс ҳолда, рўйхатдан ўтказиш бошланади."""
@@ -647,23 +664,6 @@ async def show_driver_info(message: Message):
     if driver.tex_passport:
         await message.answer_photo(driver.tex_passport, caption="📃 *Сизнинг техпаспортингиз*",
                                    parse_mode="Markdown")
-
-
-@driver_router.message(F.text == "📞 Админ билан боғланиш")
-async def contact_with_admin(message: Message):
-    await message.answer("Илтимос шу одамга Телеграмдан ёзинг @VPEXadmin")
-
-
-@driver_router.message(F.text == "Ортга")
-async def back(message: Message):
-    await message.answer('Танланг :', reply_markup=driver_button())
-
-
-@driver_router.message(F.text == "Бекор килиш")
-async def back(message: Message, state: FSMContext):
-    if state:
-        await state.clear()
-    await message.answer('Бекор килинди ✅', reply_markup=driver_button())
 
 
 from datetime import datetime
