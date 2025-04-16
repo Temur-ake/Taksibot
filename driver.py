@@ -319,28 +319,63 @@ async def process_confirm_yes(callback_query: CallbackQuery, state: FSMContext, 
 
 @driver_router.callback_query(F.data.startswith("admin_yes_"))
 async def admin_approve_driver(callback_query: CallbackQuery, bot: Bot):
-    """Админ тасдиқласа, шофёр базага сақланади."""
-    message_id = int(callback_query.data.split("_")[-1])  # ✅ Хабар ID ни олиш
-
-    print(f"🔍 Админ тасдиқлаган хабар ID: {message_id}")  # ✅ DEBUG
+    """Админ тасдиқласа, шофёр базага сақланади ва гуруҳга юборилади."""
+    message_id = int(callback_query.data.split("_")[-1])
+    print(f"🔍 Админ тасдиқлаган хабар ID: {message_id}")
 
     if message_id not in pending_drivers:
         await callback_query.message.answer("⚠️ Хатолик: Маълумотлар топилмади! Илтимос, қайта уриниб кўринг.")
         return
 
-    шофёр_data = pending_drivers.pop(message_id)  # ✅ Маълумотларни олиш ва cachedan ўчириш
-    user_id = шофёр_data.get("telegram_id")  # ✅ Фойдаланувчининг Telegram ID сини олиш
-    drivergroup = -1002630555042
+    data = pending_drivers.pop(message_id)
+    user_id = data.get("telegram_id")
+    drivergroup = -1002630555042  # 🔁 Сизнинг шофёрлар гуруҳи ID си
 
-    await save_driver_to_db(шофёр_data, callback_query)
-
+    await save_driver_to_db(data, callback_query)
     await callback_query.message.edit_reply_markup(reply_markup=None)
     await callback_query.message.answer("✅ Шофёр базага сақланди!", reply_markup=admin_button())
 
     if user_id:
-        await bot.send_message(user_id, "✅ *Админ маълумотларингизни қабул қилди!*", parse_mode="Markdown",
-                               reply_markup=driver_button())
-        await bot.send_message(drivergroup, шофёр_data)
+        await bot.send_message(
+            user_id,
+            "✅ *Админ маълумотларингизни қабул қилди!*",
+            parse_mode="Markdown",
+            reply_markup=driver_button()
+        )
+
+    # ✅ Caption тайёрлаш
+    caption = (
+        f"📋 Янги Шофёр:\n"
+        f"👤 Исми: {data.get('full_name', 'Номаълум')}\n"
+        f"🗓 Ёши: {data.get('age', 'Номаълум')}\n"
+        f"🏙 Шаҳар: {data.get('city', 'Номаълум')}\n"
+        f"📍 Туман: {data.get('town', 'Номаълум')}\n"
+        f"🚗 Машина тури: {data.get('type_of_car', 'Номаълум')}\n"
+        f"😎 *Тариф тури:* {data.get('tariff', 'Номаълум')}\n"
+        f"📞 Тел: {data.get('phone_number', 'Номаълум')}"
+    )
+
+    # ✅ Гуруҳга хабарни фото билан юбориш (иккита файл: права + тех паспорт)
+    try:
+        # Prava
+        if data.get("document"):
+            try:
+                await bot.send_photo(drivergroup, photo=data["document"], caption="📄 Ҳужжат (Права)")
+            except:
+                await bot.send_document(drivergroup, document=data["document"], caption="📄 Ҳужжат (Права)")
+
+        # Tex Passport + caption
+        if data.get("tex_passport"):
+            try:
+                await bot.send_photo(drivergroup, photo=data["tex_passport"], caption=caption, parse_mode="Markdown")
+            except:
+                await bot.send_document(drivergroup, document=data["tex_passport"], caption=caption,
+                                        parse_mode="Markdown")
+        else:
+            await bot.send_message(drivergroup, caption, parse_mode="Markdown")
+
+    except Exception as e:
+        print(f"❌ Xatolik: Shofyorni guruhga yuborishda muammo: {e}")
 
 
 @driver_router.callback_query(DriverState.user_confirm, F.data == "confirm_no")
