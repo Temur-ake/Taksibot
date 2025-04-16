@@ -403,10 +403,11 @@ def get_edit_driver_keyboard():
 
 
 async def update_driver_field(user_id: int, field_name: str, value: str):
-    query = update(Driver).where(Driver.telegram_id == user_id).values({field_name: value})
+    # Ensure user_id is a string for comparison
+    user_id_str = str(user_id)
+    query = update(Driver).where(Driver.telegram_id == user_id_str).values({field_name: value})
     session.execute(query)
     session.commit()
-
 
 @driver_router.message(F.text == "💼 Маълумотларни янгилаш")
 async def change_datas(message: Message):
