@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, String, Integer, DateTime
+from sqlalchemy import create_engine, String, Integer, DateTime, BIGINT
 from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
 from datetime import datetime, timedelta
 
@@ -16,7 +16,7 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer)
+    user_id: Mapped[int] = mapped_column(BIGINT)
     username: Mapped[str] = mapped_column(String(255), nullable=True)
     chat_id: Mapped[str] = mapped_column(String(255), nullable=True)
     last_permission_granted: Mapped[datetime] = mapped_column(DateTime,
