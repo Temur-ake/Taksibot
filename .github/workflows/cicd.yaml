@@ -16,7 +16,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/temur_taxi
+            cd /var/www/temurstaxi
             git pull 
-            systemctl restart temur_taxi.service
-            systemctl restart temur_taxi_a.service
+            systemctl restart temurstaxi.service
+            systemctl restart temursdriver.service
+            systemctl restart temursweb.service
