@@ -77,4 +77,4 @@ admin.mount_to(app)
 
 # Run the app
 if __name__ == '__main__':
-    uvicorn.run(app, host="localhost", port=8050)
+    uvicorn.run(app, host="t.feniks.best", port=8060)
