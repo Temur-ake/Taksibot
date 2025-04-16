@@ -2,7 +2,9 @@ from sqlalchemy import create_engine, String, Integer, DateTime
 from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
 from datetime import datetime, timedelta
 
-engine = create_engine('sqlite:///taksi_bot.db', echo=True)
+# engine = create_engine('sqlite:///taksi_bot.db', echo=True)
+engine = create_engine('postgresql://postgres:1@localhost:5432/taksidb', echo=True)
+
 session = Session(bind=engine)
 
 
