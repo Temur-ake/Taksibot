@@ -844,10 +844,10 @@ async def send_advertisement(message: Message, state: FSMContext):
 #     await message.answer(response, parse_mode="Markdown")
 
 
-@driver_router.message(F.text == "Админ Бўлими")
-async def admin_panel(message: Message):
-    link = 'http://localhost:8050'
-    await message.answer(text=f'🔗 Админ Бўлимига ўтиш: {link}')
+# @driver_router.message(F.text == "Админ Бўлими")
+# async def admin_panel(message: Message):
+#     link = 'http://localhost:8050'
+#     await message.answer(text=f'🔗 Админ Бўлимига ўтиш: {link}')
 
 
 async def driver() -> None:
