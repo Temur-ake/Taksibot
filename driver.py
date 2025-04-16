@@ -75,14 +75,24 @@ async def contact_with_admin(message: Message):
 
 @driver_router.message(F.text == "Ортга")
 async def back(message: Message):
-    await message.answer('Танланг :', reply_markup=driver_button())
+    user_id = message.from_user.id
+    query = select(Driver).where(Driver.telegram_id == str(user_id))
+    driver = session.execute(query).scalars().first()
+
+    if driver:
+        await message.answer('Танланг :', reply_markup=driver_button())
 
 
 @driver_router.message(F.text == "Бекор килиш")
 async def back(message: Message, state: FSMContext):
+    user_id = message.from_user.id
+    query = select(Driver).where(Driver.telegram_id == str(user_id))
+    driver = session.execute(query).scalars().first()
     if state:
         await state.clear()
-    await message.answer('Бекор килинди ✅', reply_markup=driver_button())
+    if driver:
+        await message.answer('Бекор килинди ✅', reply_markup=driver_button())
+    await message.answer('Бекор килинди ✅')
 
 
 @driver_router.message(F.text.func(lambda text: text and text.strip().lower() == "рўйхатдан ўтиш"))
