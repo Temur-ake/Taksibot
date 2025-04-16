@@ -314,7 +314,7 @@ async def process_confirm_yes(callback_query: CallbackQuery, state: FSMContext, 
 
     await callback_query.message.delete()
     await callback_query.message.answer("✅ Маълумотлар админга юборилди, илтимос кутиб туринг.",
-                                        reply_markup=main_button())
+                                        reply_markup=register_button())
 
 
 @driver_router.callback_query(F.data.startswith("admin_yes_"))
