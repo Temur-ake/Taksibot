@@ -576,10 +576,10 @@ async def edit_document(callback: CallbackQuery, state: FSMContext):
 async def save_document(message: Message, state: FSMContext):
     if message.photo:
         document = message.photo[-1].file_id
-    elif message.document:
-        document = message.document.file_id
+    # elif message.document:
+    #     document = message.document.file_id
     else:
-        await message.answer("⚠️ Илтимос, расм ёки PDF ҳужжат юборинг!", reply_markup=cancel_button(message))
+        await message.answer("⚠️ Илтимос, расм юборинг!", reply_markup=cancel_button(message))
         return
 
     await update_driver_field(message.from_user.id, "document", document)
@@ -597,10 +597,10 @@ async def edit_tex_passport(callback: CallbackQuery, state: FSMContext):
 async def save_tex_passport(message: Message, state: FSMContext):
     if message.photo:
         tex_passport = message.photo[-1].file_id
-    elif message.document:
-        tex_passport = message.document.file_id
+    # elif message.document:
+    #     tex_passport = message.document.file_id
     else:
-        await message.answer("⚠️ Илтимос, расм ёки PDF ҳужжат юборинг!", reply_markup=cancel_button(message))
+        await message.answer("⚠️ Илтимос, расм юборинг!", reply_markup=cancel_button(message))
         return
 
     await update_driver_field(message.from_user.id, "tex_passport", tex_passport)
