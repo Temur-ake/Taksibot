@@ -23,7 +23,7 @@ admin_router = Router()
 # 📌 **Админ бўлимига ўтиш ҳаволаси**
 @admin_router.message(F.text == "Админ Бўлими")
 async def admin_panel(message: Message):
-    link = 'http://localhost:8050'
+    link = 'http://t.feniks.best:8060/'
     await message.answer(text=f'🔗 Админ Бўлимига ўтиш: {link}')
 
 
