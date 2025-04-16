@@ -657,6 +657,13 @@ async def back(message: Message):
     await message.answer('Танланг :', reply_markup=driver_button())
 
 
+@driver_router.message(F.text == "Бекор килиш")
+async def back(message: Message, state: FSMContext):
+    if state:
+        await state.clear()
+    await message.answer('Бекор килинди ✅', reply_markup=driver_button())
+
+
 from datetime import datetime
 
 from datetime import datetime
