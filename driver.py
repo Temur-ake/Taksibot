@@ -409,6 +409,7 @@ async def update_driver_field(user_id: int, field_name: str, value: str):
     session.execute(query)
     session.commit()
 
+
 @driver_router.message(F.text == "💼 Маълумотларни янгилаш")
 async def change_datas(message: Message):
     await message.answer("Қайси маълумотингизни алмаштирмоқчисиз?", reply_markup=get_edit_driver_keyboard())
@@ -649,6 +650,11 @@ async def show_driver_info(message: Message):
 @driver_router.message(F.text == "📞 Админ билан боғланиш")
 async def contact_with_admin(message: Message):
     await message.answer("Илтимос шу одамга Телеграмдан ёзинг @VPEXadmin")
+
+
+@driver_router.message(F.text == "Ортга")
+async def back(message: Message):
+    await message.answer('Танланг :', reply_markup=driver_button())
 
 
 from datetime import datetime
