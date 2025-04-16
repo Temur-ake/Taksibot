@@ -61,11 +61,11 @@ async def start_bot(message: Message, state: FSMContext):
     )
 
     # Admin uchun tugmalar
-    if str(user_id) == os.getenv('ADMIN_ID'):
-        await message.answer(
-            f'Салом админ {full_name}',
-            reply_markup=admin_button()
-        )
+    # if str(user_id) == os.getenv('ADMIN_ID'):
+    #     await message.answer(
+    #         f'Салом админ {full_name}',
+    #         reply_markup=admin_button()
+    #     )
 
 
 @driver_router.message(F.text == "📞 Админ билан боғланиш")
