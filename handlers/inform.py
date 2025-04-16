@@ -20,7 +20,7 @@ GROUP_TASHKENT = -1002462270850  # Buyurtma T -> A gruppa
 # shopirlar = -1002630555042 #shopurlar
 # GROUP_ID = -1002673628832  # toshkent shopirlar
 # GROUP_ID1 = -1002540963651 #adnijon shopirlar
-admin_chat_id = [7914466408]
+admin_chat_id = [6067978806]
 pending_drivers = {}
 
 ROUTES = ["Андижон -> Тошкент", "Тошкент -> Андижон"]
