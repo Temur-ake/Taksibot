@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from sqlalchemy import create_engine, String, Integer, DateTime, BigInteger, Column
 from sqlalchemy.orm import DeclarativeBase, Session, Mapped, mapped_column
