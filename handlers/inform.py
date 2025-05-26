@@ -3,7 +3,7 @@ from datetime import datetime
 from aiogram import Bot, Router, F
 from aiogram.filters import Filter
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, KeyboardButton, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import Message, KeyboardButton,  InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from sqlalchemy import update, select, func
 
